@@ -1,4 +1,19 @@
+import firebase from 'firebase';
+
+import auth from './components/Auth/auth';
+import authData from './helpers/data/authData';
+import myNavbar from './components/MyNavbar/myNavbar';
+
+import apiKeys from './helpers/apiKeys';
+
 import 'bootstrap';
 import '../styles/main.scss';
 
-console.error('CONSOLE ERROR (I did this.  It\'s not a real error.)');
+const init = () => {
+  firebase.initializeApp(apiKeys.firebasekeys);
+  authData.checkLoginStatus();
+  auth.loginButton();
+  myNavbar.logoutEvent();
+};
+
+init();
