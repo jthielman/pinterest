@@ -1,0 +1,51 @@
+{
+  "pin1": {
+    "name": "Corduroy Suit",
+    "siteUrl": "http://collections.lacma.org/node/214501",
+    "imgUrl": "https://i.pinimg.com/564x/01/54/9e/01549e925f6a072a376fe477582b0667.jpg",
+    "description": "A corduroy 3-piece suit meant for nootliness with an unforeseenly sharp cut",
+    "boardId": "board1"
+  },
+  "pin2": {
+    "name": "Carmagnole",
+    "siteUrl": "",
+    "imgUrl": "https://i.pinimg.com/originals/9f/4b/bf/9f4bbfb32f3763ccdb3d463ab6a37f91.jpg",
+    "description": "Red jacket from France, 1790s.  Fashionable sleeves sat much higher on the shoulder at that time, so it's likely the mannequin is too small for the coat.",
+    "boardId": "board1"
+  },
+  "pin3": {
+    "name": "Royal Stetson Whippet",
+    "siteUrl": "https://www.etsy.com/listing/516705025/1940s-dove-gray-royal-stetson-whippet",
+    "imgUrl": "https://i.pinimg.com/564x/7c/11/16/7c1116969d91e83bc312ea0662102b2c.jpg",
+    "description": "A sharp hat",
+    "boardId": "board2"
+  },
+  "pin4": {
+    "name": "Cool hats on these criminals",
+    "siteUrl": "http://twistedsifter.com/2011/05/vintage-mugshots-from-1920s-black-white/",
+    "imgUrl": "https://i.pinimg.com/564x/0f/ca/ec/0fcaec28231b9dfad5aa6cb175902f78.jpg",
+    "description": "Australian criminals in experimental mugshots.  Damn, they look cool.",
+    "boardId": "board2"
+  },
+  "pin5": {
+    "name": "1810s outfit",
+    "siteUrl": "https://www.modemuze.nl/collecties/costume-parisien-nr-1321-redingote-doubl%C3%A9e-de-taffetas-pantalon-%C3%A0-pieds",
+    "imgUrl": "https://www.modemuze.nl/sites/default/files/styles/wysiwyg/public/image-collection/amsterdam_museuma_55495.jpg?itok=CFdwz28h",
+    "description": "A nice outfit from 1813 in Paris (I believe)",
+    "boardId": "board3"
+  },
+  "pin6": {
+    "name": "1812 French look",
+    "siteUrl": "https://www.pinterest.de/pin/498984833706525504/",
+    "imgUrl": "https://i.pinimg.com/564x/d8/20/f8/d820f8f772127942dbe8f43e3a1a7d11.jpg",
+    "description": "An outfit I'd wear, apart from the hat.  Also, this dude has tiny feet.",
+    "boardId": "board3"
+  },
+  "pin7": {
+    "name": "UGLY",
+    "siteUrl": "https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwjxsfmsyNHlAhWEmOAKHZzYD_IQjRx6BAgBEAQ&url=https%3A%2F%2Fwww.pinterest.com%2Fpin%2F864550459690059603%2F&psig=AOvVaw2h3825rFCQ7Y0_f8mUyQ9a&ust=1572991544674691",
+    "imgUrl": "https://i.pinimg.com/originals/f6/81/00/f6810040e9e095956beef55548db537a.jpg",
+    "description": "An outfit I'd NEVER wear",
+    "boardId": "board3"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "user1": {
+    "name": "John",
+    "email": "john.thielman@gmail.com",
+    "location": "Awesometown, USA",
+    "imgUrl": "https://lh3.googleusercontent.com/-3IwDsS3ms4A/UIRD6dR7dXI/AAAAAAAAA-o/TTnW1BSoa84uBOxljig_nq9Ac5oU8JaJACEwYBhgL/w140-h139-p/IMG_0040.JPG",
+    "joindDate": "4th November 2019",
+    "uid": "CiNhguOOrOf6prE7kuPAjga80Eo2"
+  },
+  "user2": {
+    "name": "Fraujahulths",
+    "email": "fraujahulths.thiudilamanna@gmail.com",
+    "location": "Awesometown, Crimea",
+    "imgUrl": "https://lh3.googleusercontent.com/-3IwDsS3ms4A/UIRD6dR7dXI/AAAAAAAAA-o/TTnW1BSoa84uBOxljig_nq9Ac5oU8JaJACEwYBhgL/w140-h139-p/IMG_0040.JPG",
+    "joindDate": "4th November 219",
+    "uid": "1"
+  }
+}
