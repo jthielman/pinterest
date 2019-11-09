@@ -1,10 +1,15 @@
-// import firebase from 'firebase/app';
-// import 'firebase/auth';
+import $ from 'jquery';
 
 import boardsData from '../../helpers/data/boardsData';
+import singleBoard from '../SingleBoard/singleBoard';
 
 import './boards.scss';
 import utilities from '../../helpers/utilities';
+
+const addBoardClickEvent = (e) => {
+  e.preventDefault();
+  singleBoard.showOneBoard(e.target.id);
+};
 
 const showTheBoards = (user) => {
   boardsData.getBoards(user.uid)
@@ -18,7 +23,7 @@ const showTheBoards = (user) => {
             <div class="card-body">
               <h5 class="card-title">${bord.name}</h5>
               <p class="card-text">${bord.description}</p>
-              <a href="#" class="btn btn-primary">Show Board</a>
+              <a href="#" class="btn btn-primary show-board" id="${bord.id}">Show Board</a>
             </div>
           </div>
         </div>
@@ -26,6 +31,7 @@ const showTheBoards = (user) => {
       });
       domString += '</div>';
       utilities.printToDom('boards', domString);
+      $('body').on('click', '.show-board', addBoardClickEvent);
     })
     .catch((error) => console.error(error));
 };
