@@ -1,19 +1,28 @@
 import $ from 'jquery';
+import axios from 'axios';
 import pinsData from '../../helpers/data/pinsData';
 
 import './singleBoard.scss';
 import utilities from '../../helpers/utilities';
+import apiKeys from '../../helpers/apiKeys.json';
+
+const baseUrl = apiKeys.firebasekeys.databaseURL;
 
 const deletePin = (e) => {
-  e.preventDefault();
+  e.stopImmediatePropagation();
   const pinIdToDelete = e.target.id.split('delete-')[1];
-  const boardIdOfDeletedPin = pinIdToDelete.boardId;
-  pinsData.deletePin(pinIdToDelete)
-    .then(() => {
-      // eslint-disable-next-line no-use-before-define
-      showOneBoard(boardIdOfDeletedPin);
+  axios.get(`${baseUrl}/pins/${pinIdToDelete}.json`)
+    .then((response) => {
+      console.log('pin', response);
     })
-    .catch((err) => console.error(err));
+    .catch((error) => console.error(error));
+
+  pinsData.deletePin(pinIdToDelete);
+  // .then((boardIdOfDeletedPin) => {
+  //   // eslint-disable-next-line no-use-before-define
+  //   showOneBoard(boardIdOfDeletedPin);
+  // })
+  // .catch((err) => console.error(err));
 };
 
 const backToBoards = (e) => {
@@ -23,8 +32,9 @@ const backToBoards = (e) => {
 };
 
 const showOneBoard = (boardId) => {
-  pinsData.getPins(boardId)
+  pinsData.getPinsByBoardId(boardId)
     .then((pins) => {
+      // console.log('from showOneBoard on singleBoard.js', pins);
       let string = `
         <div class="row justify-content-between">
           <h1>Pins</h1>
