@@ -4,6 +4,18 @@ import pinsData from '../../helpers/data/pinsData';
 import './singleBoard.scss';
 import utilities from '../../helpers/utilities';
 
+const deletePin = (e) => {
+  e.preventDefault();
+  const pinIdToDelete = e.target.id.split('delete-')[1];
+  const boardIdOfDeletedPin = pinIdToDelete.boardId;
+  pinsData.deletePin(pinIdToDelete)
+    .then(() => {
+      // eslint-disable-next-line no-use-before-define
+      showOneBoard(boardIdOfDeletedPin);
+    })
+    .catch((err) => console.error(err));
+};
+
 const backToBoards = (e) => {
   e.preventDefault();
   $('#boards').removeClass('hide');
@@ -13,8 +25,11 @@ const backToBoards = (e) => {
 const showOneBoard = (boardId) => {
   pinsData.getPins(boardId)
     .then((pins) => {
-      let string = '<div class="row justify-content-between"><h1>Pins</h1>';
-      string += '<button class="btn btn-success" id="all-boards">See all boards</button></div>';
+      let string = `
+        <div class="row justify-content-between">
+          <h1>Pins</h1>
+          <button class="btn btn-success" id="all-boards">See all boards</button>
+        </div>`;
       string += '<div class="row">';
       pins.forEach((pin) => {
         string += `
@@ -24,11 +39,15 @@ const showOneBoard = (boardId) => {
             <h5 class="card-title">${pin.name}</h5>
             <p class="card-text">${pin.description}</p>
           </div>
+          <div class="card-footer">
+          <button class="btn btn-danger delete-pin" id="delete-${pin.id}">Delete pin</button>
+          </div>
         </div>
       `;
       });
       string += '</div>';
       utilities.printToDom('single-board', string);
+      $('#single-board').on('click', '.delete-pin', deletePin);
       $('#single-board').on('click', '#all-boards', backToBoards);
       $('#boards').addClass('hide');
       $('#single-board').removeClass('hide');
