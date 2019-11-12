@@ -3,6 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 
 import boardsData from '../../helpers/data/boardsData';
+import pinsData from '../../helpers/data/pinsData';
 import singleBoard from '../SingleBoard/singleBoard';
 
 import './boards.scss';
@@ -22,6 +23,11 @@ const deleteSingleBoardClickEvent = (e) => {
       const user = firebase.auth().currentUser;
       // eslint-disable-next-line no-use-before-define
       showTheBoards(user);
+      pinsData.getPinsByBoardId(boardIdToDelete)
+        .then((pins) => {
+          pins.forEach((pinn) => pinsData.deletePin(pinn.id));
+        })
+        .catch((err) => console.error(err));
     })
     .catch((err) => console.error(err));
 };
