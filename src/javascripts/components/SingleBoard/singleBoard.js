@@ -17,6 +17,10 @@ const deletePin = (e) => {
     .catch((err) => console.error(err));
 };
 
+const makePin = (e) => {
+  e.preventDefault();
+};
+
 const backToBoards = (e) => {
   e.preventDefault();
   $('#boards').removeClass('hide');
@@ -28,7 +32,8 @@ const showOneBoard = (boardId) => {
     .then((pins) => {
       let string = `
         <div class="row justify-content-between">
-          <h1>Pins</h1>
+          <h1 class="col-9">Pins</h1>
+          <button class="btn btn-success" id="new-pin" data-toggle="modal" data-target="#exampleModal">Add pin</button>
           <button class="btn btn-success" id="all-boards">See all boards</button>
         </div>`;
       string += '<div class="row">';
@@ -49,6 +54,7 @@ const showOneBoard = (boardId) => {
       string += '</div>';
       utilities.printToDom('single-board', string);
       $('#single-board').on('click', '.delete-pin', deletePin);
+      $('#single-board').on('click', '#new-pin', makePin);
       $('#single-board').on('click', '#all-boards', backToBoards);
       $('#boards').addClass('hide');
       $('#single-board').removeClass('hide');
