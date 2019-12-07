@@ -18,7 +18,27 @@ const deletePin = (e) => {
 };
 
 const makePin = (e) => {
+  e.stopImmediatePropagation();
+  const newPin = {
+    name: $('#pin-name').val(),
+    siteUrl: $('#link').val(),
+    imgUrl: $('#pin-image-url').val(),
+    description: $('#description').val(),
+    boardId: $('.delete-pin').attr('boardinfo'),
+  };
+  pinsData.createPin(newPin)
+    .then(() => {
+      $('#exampleModal').modal('hide');
+      // eslint-disable-next-line no-use-before-define
+      showOneBoard($('.delete-pin').attr('boardinfo'));
+    })
+    .catch((error) => console.error(error));
+  return newPin;
+};
+
+const pinModalEvent = (e) => {
   e.preventDefault();
+  $('body').on('click', '#add-new-pin', makePin);
 };
 
 const backToBoards = (e) => {
@@ -54,7 +74,7 @@ const showOneBoard = (boardId) => {
       string += '</div>';
       utilities.printToDom('single-board', string);
       $('#single-board').on('click', '.delete-pin', deletePin);
-      $('#single-board').on('click', '#new-pin', makePin);
+      $('#single-board').on('click', '#new-pin', pinModalEvent);
       $('#single-board').on('click', '#all-boards', backToBoards);
       $('#boards').addClass('hide');
       $('#single-board').removeClass('hide');
