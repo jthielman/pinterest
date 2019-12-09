@@ -17,7 +17,6 @@ const showSingleBoardClickEvent = (e) => {
 const deleteSingleBoardClickEvent = (e) => {
   e.preventDefault();
   const boardIdToDelete = e.target.id.split('delete-')[1];
-  console.log(boardIdToDelete);
   boardsData.deleteBoard(boardIdToDelete)
     .then(() => {
       const user = firebase.auth().currentUser;
@@ -32,10 +31,46 @@ const deleteSingleBoardClickEvent = (e) => {
     .catch((err) => console.error(err));
 };
 
+const boardModalEvent = (e) => {
+  e.preventDefault();
+  const domString = `
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New Board</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="board-name">Name</label>
+              <input type="text" class="form-control" id="board-name" placeholder="Enter Name">
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <input type="text" class="form-control" id="board-description" placeholder="Tell us about this board">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="add-new-board">Save</button>
+        </div>
+      </div>
+    </div>
+  `;
+  utilities.printToDom('exampleModal', domString);
+};
+
 const showTheBoards = (user) => {
   boardsData.getBoards(user.uid)
     .then((bords) => {
-      let domString = '<h1>Boards</h1>';
+      let domString = '<div class="row justify-content-between">';
+      domString += '<h1>Boards</h1>';
+      domString += '<button class="btn btn-success" id="new-board" data-toggle="modal" data-target="#exampleModal">Add board</button>';
+      domString += '</div>';
       domString += '<div class="row">';
       bords.forEach((bord) => {
         domString += `
@@ -57,6 +92,7 @@ const showTheBoards = (user) => {
       utilities.printToDom('boards', domString);
       $('body').on('click', '.show-board', showSingleBoardClickEvent);
       $('body').on('click', '.delete-board', deleteSingleBoardClickEvent);
+      $('body').on('click', '#new-board', boardModalEvent);
     })
     .catch((error) => console.error(error));
 };
