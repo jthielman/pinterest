@@ -41,6 +41,10 @@ const makePin = (e) => {
   return newPin;
 };
 
+const movePin = (e) => {
+  e.preventDefault();
+};
+
 const pinModalEvent = (e) => {
   e.preventDefault();
   const boardId = e.target.id.split('new-pin-')[1];
@@ -118,14 +122,15 @@ const showOneBoard = (boardId) => {
                   </button>
                   <div class="dropdown-menu">`;
             boards.forEach((board) => {
-              console.log(board.name);
-              string += `<a class="dropdown-item" href="#">${board.name}</a>`;
+              string += `<a class="dropdown-item" id="move-to-${board.id}" href="#">${board.name}</a>`;
             });
+            string += '</div></div></div></div>';
           });
-          string += '</div></div></div></div></div>';
+          string += '</div>';
           utilities.printToDom('single-board', string);
           $('#single-board').on('click', '.delete-pin', deletePin);
           $('#single-board').on('click', `#new-pin-${boardId}`, pinModalEvent);
+          $('#single-board').on('click', '.dropdown-item', movePin);
           $('#single-board').on('click', '#all-boards', backToBoards);
           $('#boards').addClass('hide');
           $('#single-board').removeClass('hide');
