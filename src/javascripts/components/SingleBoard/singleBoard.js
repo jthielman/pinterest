@@ -1,4 +1,8 @@
 import $ from 'jquery';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+
+import boardsData from '../../helpers/data/boardsData';
 import pinsData from '../../helpers/data/pinsData';
 
 import './singleBoard.scss';
@@ -87,36 +91,46 @@ const backToBoards = (e) => {
 };
 
 const showOneBoard = (boardId) => {
-  pinsData.getPinsByBoardId(boardId)
-    .then((pins) => {
-      let string = `
-        <div class="row justify-content-between">
-          <h1 class="col-9">Pins</h1>
-          <button class="btn btn-success" id="new-pin-${boardId}" data-toggle="modal" data-target="#exampleModal">Add pin</button>
-          <button class="btn btn-success" id="all-boards">See all boards</button>
-        </div>`;
-      string += '<div class="row">';
-      pins.forEach((pin) => {
-        string += `
-        <div class="card col-4">
-          <img src="${pin.imgUrl}" class="card-img-top" alt="${pin.name}">
-          <div class="card-body">
-            <h5 class="card-title">${pin.name}</h5>
-            <p class="card-text">${pin.description}</p>
-          </div>
-          <div class="card-footer">
-          <button class="btn btn-danger delete-pin" id="delete-${pin.id}" boardInfo="${pin.boardId}">Delete pin</button>
-          </div>
-        </div>
-      `;
-      });
-      string += '</div>';
-      utilities.printToDom('single-board', string);
-      $('#single-board').on('click', '.delete-pin', deletePin);
-      $('#single-board').on('click', `#new-pin-${boardId}`, pinModalEvent);
-      $('#single-board').on('click', '#all-boards', backToBoards);
-      $('#boards').addClass('hide');
-      $('#single-board').removeClass('hide');
+  boardsData.getBoards(firebase.auth().currentUser.uid)
+    .then((boards) => {
+      pinsData.getPinsByBoardId(boardId)
+        .then((pins) => {
+          let string = `
+            <div class="row justify-content-between">
+              <h1 class="col-9">Pins</h1>
+              <button class="btn btn-success" id="new-pin-${boardId}" data-toggle="modal" data-target="#exampleModal">Add pin</button>
+              <button class="btn btn-success" id="all-boards">See all boards</button>
+            </div>`;
+          string += '<div class="row">';
+          pins.forEach((pin) => {
+            string += `
+              <div class="card col-4">
+                <img src="${pin.imgUrl}" class="card-img-top" alt="${pin.name}">
+                <div class="card-body">
+                  <h5 class="card-title">${pin.name}</h5>
+                  <p class="card-text">${pin.description}</p>
+                </div>
+                <div class="card-footer">
+                <button class="btn btn-danger delete-pin" id="delete-${pin.id}" boardInfo="${pin.boardId}">Delete pin</button>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Move Pin
+                  </button>
+                  <div class="dropdown-menu">`;
+            boards.forEach((board) => {
+              console.log(board.name);
+              string += `<a class="dropdown-item" href="#">${board.name}</a>`;
+            });
+          });
+          string += '</div></div></div></div></div>';
+          utilities.printToDom('single-board', string);
+          $('#single-board').on('click', '.delete-pin', deletePin);
+          $('#single-board').on('click', `#new-pin-${boardId}`, pinModalEvent);
+          $('#single-board').on('click', '#all-boards', backToBoards);
+          $('#boards').addClass('hide');
+          $('#single-board').removeClass('hide');
+        })
+        .catch((error) => console.error(error));
     })
     .catch((error) => console.error(error));
 };
