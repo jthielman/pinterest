@@ -31,6 +31,23 @@ const deleteSingleBoardClickEvent = (e) => {
     .catch((err) => console.error(err));
 };
 
+const makeBoard = (e) => {
+  e.stopImmediatePropagation();
+  const user = firebase.auth().currentUser;
+  const newBoard = {
+    name: $('#board-name').val(),
+    uid: user.uid,
+    description: $('#board-description').val(),
+  };
+  boardsData.createBoard(newBoard)
+    .then(() => {
+      $('#exampleModal').modal('hide');
+      // eslint-disable-next-line no-use-before-define
+      showTheBoards(user);
+    })
+    .catch((error) => console.error(error));
+};
+
 const boardModalEvent = (e) => {
   e.preventDefault();
   const domString = `
@@ -62,6 +79,7 @@ const boardModalEvent = (e) => {
     </div>
   `;
   utilities.printToDom('exampleModal', domString);
+  $('body').on('click', '#add-new-board', makeBoard);
 };
 
 const showTheBoards = (user) => {
