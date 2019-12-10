@@ -43,6 +43,8 @@ const makePin = (e) => {
 
 const movePin = (e) => {
   e.preventDefault();
+  const goalBoard = e.target.id.split('move-to-')[1];
+  console.log(goalBoard);
 };
 
 const pinModalEvent = (e) => {
